@@ -4,6 +4,7 @@ import { User } from "./user.schema";
 import  mongoose, { Model } from "mongoose";
 import { CreateUserDto } from "./createUserDto";
 import { updateUserDto } from "./updateUserDto";
+import * as bcrypt from "bcrypt"
 
 @Injectable()
 
@@ -13,7 +14,9 @@ export class UserService{
     ){}
 
     async createUser(createUserDto:CreateUserDto) :Promise<User>{
-        const res =await this.userModel.create(createUserDto);
+        const {username,password,department,address}= createUserDto;
+        const hashedPassword = await bcrypt.hash(password)
+        const res =await this.userModel.create({...createUserDto, password:hashedPassword});
         return res;
 
     }
@@ -37,7 +40,7 @@ export class UserService{
     const userExist=await this.userModel.findByIdAndUpdate(id,updateUserDto);
 
   if(!userExist){
-    throw new NotFoundException(`User with ${id}Not Found`);
+    throw new NotFoundException(`User with ${id} Not Found`);
   }
   return userExist;
 }  

@@ -5,7 +5,10 @@ import mongoose from 'mongoose';
 export class User {
   id: mongoose.Types.ObjectId;
   @Prop()
-  name: string;
+  password:string;
+
+  @Prop()
+ username: string;
 
   @Prop()
   address: string;

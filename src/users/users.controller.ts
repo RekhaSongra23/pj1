@@ -10,11 +10,11 @@ import { updateUserDto } from './updateUserDto';
 export class UsersController {
   constructor(private readonly UserService: UserService) {}
 
-  @Post()
-  async createUser(@Body() CreateUserDto: CreateUserDto): Promise<User> {
-    const userCreate = await this.UserService.createUser(CreateUserDto);
-    return userCreate;
-  }
+  // @Post()
+  // async createUser(@Body() CreateUserDto: CreateUserDto): Promise<User> {
+  //   const userCreate = await this.UserService.createUser(CreateUserDto);
+  //   return userCreate;
+  // }
 
   @Get()
   async getAllUsers(){
@@ -29,7 +29,7 @@ export class UsersController {
   }
 
   @Put(':id')
-  async updateUserById( @Body()updateUserDto:updateUserDto,  @Param('id') id :mongoose.Types.ObjectId, ){
+  async updateUserById( @Body()updateUserDto:updateUserDto,@Param('id') id :mongoose.Types.ObjectId, ){
     try {
       const userExist=await this.UserService.updateUser(id,updateUserDto)
     
@@ -43,9 +43,12 @@ export class UsersController {
 async deleteById(@Param('id') id :mongoose.Types.ObjectId,){
   try {
     const deluser=await this.UserService.deleteUserById(id);    
+    
     return deluser;
+    
   }catch(err){
     throw new BadRequestException(err);
   }
+
 }
 }
