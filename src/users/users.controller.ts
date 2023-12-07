@@ -5,16 +5,12 @@ import { User } from './user.schema';
 import mongoose from 'mongoose';
 import { CreateUserDto } from './createUserDto';
 import { updateUserDto } from './updateUserDto';
+import { UserRole } from './createUserDto';
 
 @Controller('/users')
 export class UsersController {
   constructor(private readonly UserService: UserService) {}
 
-  // @Post()
-  // async createUser(@Body() CreateUserDto: CreateUserDto): Promise<User> {
-  //   const userCreate = await this.UserService.createUser(CreateUserDto);
-  //   return userCreate;
-  // }
 
   @Get()
   async getAllUsers(){
@@ -24,9 +20,10 @@ export class UsersController {
 
   @Get(':id') 
   async getUserById(@Param('id') id :mongoose.Types.ObjectId){
-    const finduser=await this .UserService.getUserById(id)
+    const finduser=await this.UserService.getUserById(id)
     return finduser;
   }
+  
 
   @Put(':id')
   async updateUserById( @Body()updateUserDto:updateUserDto,@Param('id') id :mongoose.Types.ObjectId, ){

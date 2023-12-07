@@ -1,8 +1,12 @@
 import mongoose from 'mongoose';
+import { UserRole } from './createUserDto';
+import { IsEnum } from '@nestjs/class-validator';
 
 export class updateUserDto {
   id: mongoose.Types.ObjectId;
-  name: string;
+  username: string;
+  @IsEnum(UserRole)
+  role:UserRole
   address: string;
   department: string;
 }

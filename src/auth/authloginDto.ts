@@ -1,4 +1,6 @@
-import { IsNotEmpty, IsString } from "@nestjs/class-validator";
+import { IsEnum, IsNotEmpty, IsString } from "@nestjs/class-validator";
+
+
 
 export class authloginDto {
   @IsNotEmpty()
