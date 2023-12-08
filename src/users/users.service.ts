@@ -13,12 +13,15 @@ export class UserService{
         @InjectModel(User.name) private userModel :mongoose.Model<User>,
     ){}
 
+
+
+//get all users----------------------------------------------------------------
     async getAllUsers():Promise<User[]>{
         const res1= await this.userModel.find();
         return res1;
     }
 
-
+//ghet user by id---------------------------------------------------------------
     async getUserById(id:mongoose.Types.ObjectId) :Promise<User>{
         const res2 =await this.userModel.findById(id);
         return res2;
@@ -26,7 +29,7 @@ export class UserService{
 
     }
 
-    //updatebyId--------------------------------------------------------------------------
+    //updatebyId-----------------------------------------------------------------
 
     async updateUser(id :mongoose.Types.ObjectId,
      updateUserDto:updateUserDto):Promise<User>{
@@ -38,6 +41,8 @@ export class UserService{
   return userExist;
 }  
 
+
+//delete by Id--------------------------------------------------------------------
 async deleteUserById(id:mongoose.Types.ObjectId){
     const deleteUser= await this .userModel.findByIdAndDelete(id);
 
