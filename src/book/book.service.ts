@@ -13,8 +13,7 @@ export class BookService {
   //create books---------------------------
 
   async create(bookid: string, BookDto: BookDto): Promise<Book> {
-    const createBook = await this.bookmodel.create({
-      ...BookDto,
+    const createBook = await this.bookmodel.create({ ...BookDto,
       author: new mongoose.Types.ObjectId(bookid),
     });
 
