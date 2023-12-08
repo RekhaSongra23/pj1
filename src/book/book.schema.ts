@@ -11,7 +11,7 @@ export class Book {
   title: string;
 
   @Prop()
-  author: mongoose.Types.ObjectId;
+  author: string;
 
   @Prop()
   description: string;
