@@ -1,5 +1,6 @@
 import {
-  Controller,  Post,  Body,  Get,  Param,  Res,  Put,  HttpStatus,  UseGuards,Request, Delete, BadRequestException} from '@nestjs/common';
+  Controller,  Post,  Body,  Get,  Param, Put, 
+   HttpStatus,  UseGuards,Request, Delete, BadRequestException} from '@nestjs/common';
 
 import { BookService } from './book.service';
 import { BookDto } from './bookdto';
@@ -16,7 +17,7 @@ import { UserRoles } from 'src/role/role.decorator';
 import { response } from 'express';
 import { updateBookDto } from './updateBookDto';
 
-@UseGuards(AuthGuard)
+@UseGuards(RoleGuard,AuthGuard)
 
 @Controller('/book')
 export class BookController {
@@ -45,8 +46,8 @@ export class BookController {
   //GetById-----------------------------------------------------------
   @Get(':id')
   async findById(@Param('id') id :mongoose.Types.ObjectId){
-  return await  this.bookService.getBookById(id).catch(()=>{
-    throw new  NotFoundException(`Book with ${id} not found`)
+  return await this.bookService.getBookById(id).catch(()=>{
+    throw new NotFoundException(`Book with ${id} not found`)
   });
   
 }

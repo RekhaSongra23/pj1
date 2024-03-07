@@ -26,7 +26,8 @@ export class UsersController {
   
 
   @Put(':id')
-  async updateUserById( @Body()updateUserDto:updateUserDto,@Param('id') id :mongoose.Types.ObjectId, ){
+  async updateUserById( @Body()updateUserDto:updateUserDto,
+  @Param('id') id :mongoose.Types.ObjectId, ){
     try {
       const userExist=await this.UserService.updateUser(id,updateUserDto)
     

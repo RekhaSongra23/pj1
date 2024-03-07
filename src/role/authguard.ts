@@ -5,7 +5,7 @@ import { Request } from 'express';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  constructor(private jwtService: JwtService) {}
+  constructor(private jwtService: JwtService) {}    //dependency injection
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
     const token = await this.extractTokenFromHeader(request);
@@ -27,7 +27,7 @@ export class AuthGuard implements CanActivate {
 
   async validate(payload: any) {
     const user = {
-      id: payload.sub,
+      id: payload.id,
       username: payload.username,
       role: payload.role,
     };

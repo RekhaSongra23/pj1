@@ -13,6 +13,17 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
+  async findbyusername(username: string) {
+    return await this.userModel.findOne({ username });
+  }
+
+  async createUser(createUserDto: CreateUserDto): Promise<User> {
+    const { username, password, department, address } = createUserDto;
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const res = await this.userModel.create({ ...createUserDto, password: hashedPassword, });
+    return res;
+  }
+
   async login(username: string, password: string) {
     const usersign = await this.findbyusername(username);
     if (!usersign) {
@@ -21,7 +32,7 @@ export class AuthService {
 
     const validPassword = await bcrypt.compare(password, usersign.password);
     if (!validPassword) {
-      throw new UnauthorizedException(`Password doesnot matched`);
+      throw new UnauthorizedException(`Password not matched`);
     }
 
     const payload = {
@@ -31,19 +42,5 @@ export class AuthService {
       secret: `${process.env.JWT_SECRET}`,
     });
     return { accessToken };
-  }
-
-  async findbyusername(username: string) {
-    return await this.userModel.findOne({ username });
-  }
-
-  async createUser(createUserDto: CreateUserDto): Promise<User> {
-    const { username, password, department, address } = createUserDto;
-    const hashedPassword = await bcrypt.hash(password,10);
-    const res = await this.userModel.create({
-      ...createUserDto,
-      password: hashedPassword,
-    });
-    return res;
   }
 }

@@ -19,12 +19,12 @@ export class BookService {
 
     return createBook;
   }
-  //get all books------------------------------------
+  //get all books------------------------------------------
   async getBooks(): Promise<Book[]> {
     const books = await this.bookmodel.find();
     return books;
   }
-  //get boks by Id---------------------------------------
+  //get boks by Id-------------------------------------------
   async getBookById(id: mongoose.Types.ObjectId): Promise<Book> {
     const isvalidid = await mongoose.isValidObjectId(id);
 
